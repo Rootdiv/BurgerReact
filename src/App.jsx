@@ -1,16 +1,17 @@
+import { Catalog } from 'components/Catalog/Catalog';
+import { Footer } from 'components/Footer/Footer';
 import { Header } from 'components/Header/Header';
-import { Container } from 'components/Container/Container';
+import { Navigation } from 'components/Navigation/Navigation';
 
 export const App = () => {
   return (
     <>
       <Header />
       <main>
-        <nav>
-          <Container />
-        </nav>
-        <section></section>
+        <Navigation />
+        <Catalog />
       </main>
+      <Footer />
     </>
   );
 };
