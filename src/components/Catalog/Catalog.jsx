@@ -2,12 +2,11 @@ import { useEffect } from 'react';
 import style from './Catalog.module.css';
 import { Container } from 'components/Container/Container';
 import { Order } from 'components/Order/Order';
-import { CatalogProduct } from 'components/CatalogProduct/CatalogProduct';
+import { ListProduct } from 'components/ListProduct/ListProduct';
 import { useSelector, useDispatch } from 'react-redux';
 import { productRequestAsync } from 'store/product/productSlice';
 
 export const Catalog = () => {
-  const { products } = useSelector(state => state.product);
   const { category, activeCategory } = useSelector(state => state.category);
   const dispatch = useDispatch();
 
@@ -23,19 +22,7 @@ export const Catalog = () => {
         <Order />
         <div className={style.wrapper}>
           <h2 className={style.title}>{category[activeCategory]?.rus}</h2>
-          <div className={style.wrap_list}>
-            {products.length !== 0 ? (
-              <ul className={style.list}>
-                {products.map(product => (
-                  <li key={product.id} className={style.item}>
-                    <CatalogProduct product={product} />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <h3>К сожалению товаров данной категории нет</h3>
-            )}
-          </div>
+          <ListProduct />
         </div>
       </Container>
     </section>

@@ -1,3 +1,9 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 145px);
+  gap: 10px;
+}
+
 .product {
   padding: 4px;
   display: flex;
@@ -90,6 +96,11 @@
 }
 
 @media (min-width: 1024px) {
+  .list {
+    grid-template-columns: repeat(auto-fit, 300px);
+    gap: 30px;
+  }
+
   .product {
     padding: 12px;
     border-radius: 18px;
