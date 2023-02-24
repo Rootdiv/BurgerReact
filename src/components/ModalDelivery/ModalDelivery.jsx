@@ -5,7 +5,7 @@ import { closeModal } from 'store/modalDelivery/modalDeliverySlice';
 import style from './ModalDelivery.module.css';
 
 export const ModalDelivery = () => {
-  const { isOpen } = useSelector(state => state.modal);
+  const { isOpen } = useSelector(state => state.modalDelivery);
   const form = useSelector(state => state.form);
   const { orderList } = useSelector(state => state.order);
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const ModalDelivery = () => {
   return (
     isOpen && (
       <div
-        className={style.modal}
+        className="modal"
         onClick={({ target, currentTarget }) => {
           if (target === currentTarget) {
             dispatch(closeModal());
@@ -112,7 +112,7 @@ export const ModalDelivery = () => {
               Оформить
             </button>
           </div>
-          <button className={style.modal__close} type="button" onClick={() => dispatch(closeModal())}>
+          <button className="modal__close" type="button" onClick={() => dispatch(closeModal())}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <rect x="5.07422" y="5.28247" width="1" height="20" transform="rotate(-45 5.07422 5.28247)" />
               <rect x="5.78125" y="19.4246" width="1" height="20" transform="rotate(-135 5.78125 19.4246)" />

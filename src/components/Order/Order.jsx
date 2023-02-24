@@ -1,22 +1,28 @@
+import classNames from 'classnames';
 import { OrderGoods } from 'components/OrderGoods/OrderGoods';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from 'store/modalDelivery/modalDeliverySlice';
 import { orderRequestAsync } from 'store/order/orderSlice';
 import style from './Order.module.css';
 
 export const Order = () => {
+  const [openOrder, setOpenOrder] = useState(false);
   const { totalCount, totalPrice, orderList, orderGoods } = useSelector(state => state.order);
   const dispatch = useDispatch();
+
+  const handlerOpen = () => {
+    setOpenOrder(!openOrder);
+  };
 
   useEffect(() => {
     dispatch(orderRequestAsync());
   }, [orderList.length]);
 
   return (
-    <div className={style.order}>
+    <div className={classNames(style.order, openOrder ? style.order_open : '')}>
       <section className={style.wrapper}>
-        <div className={style.header} tabIndex="0" role="button">
+        <div className={style.header} tabIndex="0" role="button" onClick={handlerOpen}>
           <h2 className={style.title}>Корзина</h2>
           <span className={style.count}>{totalCount}</span>
         </div>
@@ -38,7 +44,9 @@ export const Order = () => {
           </button>
           <div className={style.appeal}>
             <p className={style.text}>Бесплатная доставка</p>
-            <button className={style.close}>Свернуть</button>
+            <button className={style.close} onClick={handlerOpen}>
+              Свернуть
+            </button>
           </div>
         </div>
       </section>

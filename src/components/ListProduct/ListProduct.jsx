@@ -1,13 +1,14 @@
 import { API_URI } from 'const';
 import { useSelector, useDispatch } from 'react-redux';
+import { openModal } from 'store/modalProduct/modalProductSlice';
 import { addProduct } from 'store/order/orderSlice';
 import style from './ListProduct.module.css';
 
 export const ListProduct = () => {
-  const { products } = useSelector(state => state.product);
+  const { products, loaded } = useSelector(state => state.product);
   const dispatch = useDispatch();
 
-  if (!products.length) {
+  if (!products.length && loaded) {
     return <p className={style.empty}>К сожалению товаров данной категории нет</p>;
   }
 
@@ -22,7 +23,9 @@ export const ListProduct = () => {
               <span className="currency">&nbsp;&#8381;</span>
             </p>
             <h3 className={style.title}>
-              <button className={style.detail}>{product.title}</button>
+              <button className={style.detail} onClick={() => dispatch(openModal(product.id))}>
+                {product.title}
+              </button>
             </h3>
             <p className={style.weight}>{product.weight}г</p>
             <button className={style.add} type="button" onClick={() => dispatch(addProduct({ id: product.id }))}>
