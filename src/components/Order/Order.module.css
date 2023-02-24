@@ -5,7 +5,7 @@
 .wrapper {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -10px;
   right: 0;
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.16);
@@ -81,7 +81,7 @@
 .submit {
   width: 100%;
   padding: 9px;
-  background: #ff7020;
+  background-color: #ff7020;
   border-radius: 8px;
   font-weight: 400;
   font-size: 12px;
@@ -90,7 +90,14 @@
   margin-bottom: 8px;
 }
 
-.apeal {
+.submit:disabled {
+  background-color: #bfbfc0;
+  color: #000000;
+  opacity: 70%;
+  cursor: not-allowed;
+}
+
+.appeal {
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -8,7 +8,7 @@ export const ListProduct = () => {
   const dispatch = useDispatch();
 
   if (!products.length) {
-    return <h3>К сожалению товаров данной категории нет</h3>;
+    return <p className={style.empty}>К сожалению товаров данной категории нет</p>;
   }
 
   return (
@@ -19,7 +19,7 @@ export const ListProduct = () => {
             <img src={`${API_URI}/${product.image}`} alt={product.title} className={style.image} />
             <p className={style.price}>
               {product.price}
-              <span className="currency">&#8381;</span>
+              <span className="currency">&nbsp;&#8381;</span>
             </p>
             <h3 className={style.title}>
               <button className={style.detail}>{product.title}</button>
