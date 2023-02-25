@@ -41,7 +41,7 @@ export const Footer = () => (
             Design: <a href="#">Anastasia Ilina</a>
           </p>
           <p>
-            Developer: <a href="mailto:maksim.leskin@methed.ru">Maksim Leskin</a>
+            Developer: <a href="mailto:web-master@rootdiv.ru">Владимир</a>
           </p>
         </div>
       </div>
