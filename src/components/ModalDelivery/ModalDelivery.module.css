@@ -162,7 +162,7 @@
   background-color: #ffab08;
 }
 
-.submit:focus-visible {
+.submit:focus {
   background-color: #f86310;
 }
 
@@ -175,8 +175,19 @@
   color: #acacac;
 }
 
-@supports not selector(:focus-visible) {
-  .submit:focus {
+.error {
+  color: #ff0000;
+}
+
+.error__item {
+  padding-top: 10px;
+}
+
+@supports selector(:focus-visible) {
+  .button:focus {
+    background-color: none;
+  }
+  .button:focus-visible {
     background-color: #f86310;
   }
 }

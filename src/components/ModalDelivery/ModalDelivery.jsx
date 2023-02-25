@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
-import { formSubmit, updateFormValue } from 'store/form/formSlice';
+import { changeTouch, formSubmit, updateFormValue, validateForm } from 'store/form/formSlice';
 import { closeModal } from 'store/modalDelivery/modalDeliverySlice';
 import style from './ModalDelivery.module.css';
 
@@ -17,11 +17,17 @@ export const ModalDelivery = () => {
         value: event.target.value,
       }),
     );
+    dispatch(validateForm());
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(formSubmit({ ...form, orderList }));
+    dispatch(validateForm());
+    dispatch(changeTouch());
+
+    if (Object.keys(form.errors).length === 0) {
+      dispatch(formSubmit({ ...form, orderList }));
+    }
   };
 
   return (
@@ -111,6 +117,15 @@ export const ModalDelivery = () => {
             <button className={style.submit} type="submit" form="delivery">
               Оформить
             </button>
+            {form.touch && (
+              <div className={style.error}>
+                {Object.entries(form.errors).map(([key, err]) => (
+                  <p key={key} className={style.error__item}>
+                    {err}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
           <button className="modal__close" type="button" onClick={() => dispatch(closeModal())}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
