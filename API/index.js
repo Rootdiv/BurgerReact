@@ -141,7 +141,7 @@ createServer(options, async (req, res) => {
 })
   // выводим инструкцию, как только сервер запустился...
   .on('listening', () => {
-    if (process.env.NODE_ENV !== 'https') {
+    if (protocol !== 'https') {
       console.log(`Сервер YOUR_MEAL запущен. Вы можете использовать его по адресу http://localhost:${PORT}`);
       console.log('Нажмите CTRL+C, чтобы остановить сервер');
       console.log('Доступные методы:');
