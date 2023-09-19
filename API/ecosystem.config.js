@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'burger-react',
       script: 'index.js',
-      watch: '.',
+      watch: 'index.js',
       env: {
         HTTP: 'https',
         PORT: 2124,
