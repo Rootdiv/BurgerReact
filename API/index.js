@@ -1,15 +1,7 @@
 // импорт стандартных библиотек Node.js
 const { readFileSync } = require('fs');
-const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
-const { createServer } = require(protocol);
+const { createServer } = require('http');
 const path = require('path');
-
-const options = {};
-if (protocol === 'https') {
-  const certDir = '/etc/nginx/acme.sh';
-  options['key'] = readFileSync(`${certDir}/rootdiv.ru/privkey.pem`);
-  options['cert'] = readFileSync(`${certDir}/rootdiv.ru/fullchain.pem`);
-}
 
 // файл для базы данных
 const DB_FILE = process.env.DB_FILE || path.resolve(__dirname, 'db.json');
@@ -63,7 +55,7 @@ function getCategory() {
 }
 
 // создаём HTTP сервер, переданная функция будет реагировать на все запросы к нему
-createServer(options, async (req, res) => {
+createServer(async (req, res) => {
   // req - объект с информацией о запросе, res - объект для управления отправляемым ответом
   // чтобы не отклонять uri с img
   if (req.url.substring(1, 4) === 'img') {
@@ -98,7 +90,7 @@ createServer(options, async (req, res) => {
     return;
   }
   // убираем из запроса префикс URI, разбиваем его на путь и параметры
-  const [uri, query] = req.url.substr(URI_PREFIX.length).split('?');
+  const [uri, query] = req.url.substring(URI_PREFIX.length).split('?');
   const queryParams = {};
   // параметры могут отсутствовать вообще или иметь вид a=b&b=c
   // во втором случае наполняем объект queryParams { a: 'b', b: 'c' }
@@ -141,8 +133,10 @@ createServer(options, async (req, res) => {
 })
   // выводим инструкцию, как только сервер запустился...
   .on('listening', () => {
-    if (protocol === 'http') {
-      console.log(`Сервер YOUR_MEAL запущен. Вы можете использовать его по адресу http://localhost:${PORT}`);
+    if (process.env.PROD !== 'true') {
+      console.log(
+        `Сервер YOUR_MEAL запущен. Вы можете использовать его по адресу http://localhost:${PORT}`,
+      );
       console.log('Нажмите CTRL+C, чтобы остановить сервер');
       console.log('Доступные методы:');
       console.log(`GET ${URI_PREFIX} - получить список товаров`);
@@ -153,4 +147,4 @@ createServer(options, async (req, res) => {
     }
   })
   // ...и вызываем запуск сервера на указанном порту
-  .listen(PORT);
+  .listen(PORT, 'localhost');
